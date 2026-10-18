@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ശ്രീ ഗണേശ പഞ്ചരത്നം</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 15px;
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Noto Sans Malayalam', 'Kartika', 'Nirmala UI', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        /* Password Overlay Styles */
+        #password-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #121212;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .password-box {
+            background: #1e1e1e;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+            border: 1px solid #333;
+            text-align: center;
+            max-width: 350px;
+            width: 90%;
+        }
+        .password-box h2 {
+            color: #ffcc00;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        .password-box input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            border: 1px solid #444;
+            background: #2a2a2a;
+            color: #fff;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+        .password-box button {
+            background: linear-gradient(135deg, #ff9933, #ff6600);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+        }
+        .error-msg {
+            color: #ff4d4d;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            display: none;
+        }
+        /* Main Container hidden until unlocked */
+        #main-content {
+            display: none;
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+            border: 1px solid #333;
+        }
+        .image-container {
+            text-align: center;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        .image-container img {
+            width: 100%;
+            max-width: 1089px;
+            height: auto;
+            aspect-ratio: 1089 / 597;
+            object-fit: contain;
+            border-radius: 8px;
+            border: 3px solid #ff9933;
+            box-shadow: 0 4px 15px rgba(255,153,51,0.3);
+            display: block;
+            margin: 0 auto;
+        }
+        .audio-container {
+            text-align: center;
+            margin-bottom: 20px;
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #444;
+        }
+        .audio-container audio {
+            width: 100%;
+            max-width: 450px;
+        }
+        h1 {
+            text-align: center;
+            color: #ffcc00;
+            font-size: 1.6rem;
+            margin-bottom: 5px;
+        }
+        .caption-banner {
+            text-align: center;
+            background: linear-gradient(135deg, #ff9933, #ff6600);
+            color: #000;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(255,153,51,0.4);
+        }
+        .dedication {
+            text-align: center;
+            color: #00ffcc;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        .verse-box {
+            background: #2a2a2a;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 5px solid #ff9933;
+        }
+        .verse-title {
+            color: #ffcc00;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+        .verse-text {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 8px;
+            white-space: pre-line;
+            color: #f0f0f0;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 1.1rem;
+            color: #ff9933;
+            font-weight: bold;
+            border-top: 1px solid #444;
+            padding-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Password Protection Overlay -->
+    <div id="password-overlay">
+        <div class="password-box">
+            <h2>Enter Password</h2>
+            <input type="password" id="passcode" placeholder="Enter page password" onkeypress="checkEnter(event)">
+            <button onclick="unlockPage()">Submit</button>
+            <div id="error-msg" class="error-msg">Incorrect password. Try again!</div>
+        </div>
+    </div>
+
+    <!-- Main Webpage Content (Initially Hidden) -->
+    <div id="main-content">
+        <div class="container">
+            <div class="caption-banner">ശ്രീ ഗണേശ പഞ്ചരത്നം</div>
+            
+            <!-- Lord Ganesha Image Display (1089x597 Rectangular Scale) -->
+            <div class="image-container">
+                <img src="https://github.com/ktbabusuppalu/GANAPATHY-PANCHARATNAM-IN-MALAYALAM-VERSION/blob/main/MALAYALAM%20GANAPATHY%20PANCHARATNAM.png?raw=true">
+            </div>
+
+            <!-- Audio Player connected via GitHub Raw Link -->
+            <div class="audio-container">
+                <p style="margin: 0 0 8px 0; font-size: 0.95rem; color: #ffcc00;">പഞ്ചരത്ന ഓഡിയോ കേൾക്കൂ:</p>
+                <audio controls preload="metadata">
+                    <source src="https://github.com/ktbabusuppalu/KTB-GANAPATHY PANCHARATNAM-MALAYALAM-VERSION/raw/main/MALAYALAM%20GANAPATHY%20PANCHARATNAM.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+
+            <h1>ശ്രീ ഗണേശ പഞ്ചരത്നം</h1>
+            <div class="dedication">തെലുങ്ക് ജനതയ്ക്കായി സമർപ്പിക്കുന്നു</div>
+
+            <!--ഒന്നാം പാടൽ-->
+            <div class="verse-box">
+                <div class="verse-title">ഒന്നാം പാടൽ</div>
+                <div class="verse-text">കയ്യിൽ മോദകമേന്തിയ താമരക്കരത്തവനേ,
+മുക്തിയും ആനന്ദവും നൽകുന്ന കാരുണ്യവാനേ!
+ബാലചന്ദ്രനെ ചൂടിയ സജ്ജനപരിരക്ഷകനേ,
+വിനായകാ, നിന്റെ പാദങ്ങൾ കൂപ്പുന്നു ഞാൻ!</div>
+            </div>
+
+            <!--രണ്ടാം പാടൽ-->
+            <div class="verse-box">
+                <div class="verse-title">രണ്ടാം പാടൽ</div>
+                <div class="verse-text">അമ്പിളി ചൂടിയ പ്രകാശസുന്ദരരൂപനേ,
+ദുരിതങ്ങളെല്ലാം കൊന്നൊടുക്കും കരം ധരിച്ചവനേ!
+വേദങ്ങളുടെ അന്ത്യത്തിൽ നടമാടും രാജാവേ,
+എന്റെ ഹൃദയത്തിൽ വാഴാൻ നിന്നെ ഞാൻ പ്രതിഷ്ഠിക്കുന്നു!</div>
+            </div>
+
+            <!--മൂന്നാം പാടൽ-->
+            <div class="verse-box">
+                <div class="verse-title">മൂന്നാം പാടൽ</div>
+                <div class="verse-text">അഖിലലോകത്തിനും മംഗളം നൽകുന്നവനേ,
+ശത്രുക്കളെ നിഗ്രഹിച്ച് ജീവനെ രക്ഷിക്കുന്നവനേ!
+മേഘവർണ്ണ ലംബോദരാ, മനോഹര മൂർത്തിയേ, 
+പുകഴും താമരയും തന്നു നിന്നെ ഞാൻ വാഴ്ത്തുന്നു!</div>
+            </div>
+
+            <!--നാലാം പാടൽ-->
+            <div class="verse-box">
+                <div class="verse-title">നാലാം പാടൽ</div>
+                <div class="verse-text">దీనుల ఆర్తులను దిగ్రోలు దేవుడు
+പ്രകാശിക്കും വേദത്തിന്റെ ഉൾക്കരുവായവനേ!
+പുലിത്തോലണിഞ്ഞ പരമശിവന്റെ മൈന്തനേ,
+കലിയുഗം നീങ്ങാനും നിൻ ചരണം വണങ്ങുന്നു!</div>
+            </div>
+
+            <!--അഞ്ചാം പാടൽ-->
+            <div class="verse-box">
+                <div class="verse-title">അഞ്ചാം പാടൽ</div>
+                <div class="verse-text">പ്രകാശിക്കും ഏകദന്തം ധരിച്ചവനേ,
+അക്ഷയനായ മഹേശ്വരന്റെ സ്നേഹപുത്രനേ!
+യോഗീന്ദ്രന്മാരുടെ ഹൃദയത്തിന് ആനന്ദമേകുന്നവനേ,
+ഏകദന്താ, നിന്നെ ഞാൻ എന്നും വണങ്ങുന്നു!</div>
+            </div>
+
+            <!-- ഫലശ്രുതി-->
+            <div class="verse-box">
+                <div class="verse-title">ഫലശ്രുതി</div>
+                <div class="verse-text">ഈ പഞ്ചരത്നങ്ങൾ നെഞ്ചിൽ പതിപ്പിച്ചുകൊണ്ട്,
+ഈ പഞ്ചരത്നങ്ങൾ നെഞ്ചിൽ പതിപ്പിച്ചുകൊണ്ട്,
+ബ്രഹ്മമുഹൂർത്തത്തിൽ ഭക്തിയോടെ സ്തുതിച്ചു തൊഴുന്നവർ,
+സകല വ്യാധികളും അകന്നു ദീർഘായുസ്സും,
+ഐശ്വര്യവും ജീവിതത്തിൽ വേഗത്തിൽ നേടിയെടുക്കും!</div>
+            </div>
+
+            <div class="footer">
+                മലയാളി മക്കൾക്കായി സമർപ്പണം<BR>
+                സഹോദരിമാരായ മോനിശ്രീ, ലത കൂടാതെ താമ്പരത്തുനിന്നുള്ള പദ്മിനി
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const correctPassword = "Ganesha123";
+
+        function unlockPage() {
+            const enteredPass = document.getElementById("passcode").value;
+            const errorMsg = document.getElementById("error-msg");
+
+            if (enteredPass === correctPassword) {
+                document.getElementById("password-overlay").style.display = "none";
+                document.getElementById("main-content").style.display = "flex";
+            } else {
+                errorMsg.style.display = "block";
+            }
+        }
+
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                unlockPage();
+            }
+        }
+    </script>
+</body>
+</html>
